@@ -6,7 +6,7 @@
 -Modules works with validation libraries
 
 
-# Quick Star
+# Quick Start
 
 Import needed files
 
@@ -55,7 +55,7 @@ $("form").formProgressBar({
 });
 ```
 
-# How works changing colors
+# How color change works
 There are 2 classes
 `warn` and `error` which are added to `#jQueryProgressFormBar > div`
 if some field is invalid to progress bar is added class `warn`
