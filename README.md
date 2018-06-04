@@ -66,7 +66,7 @@ In case you want change color of fields use `#jQueryProgressFormBar > div.warn` 
 
 # Author
 
-###Krzysztof Łokaj "Wokay"
+### Krzysztof Łokaj "Wokay"
 - Blog https://wokay.me/
 - Twitter https://twitter.com/_Wokay
 - Linkedin https://www.linkedin.com/in/wokay/
