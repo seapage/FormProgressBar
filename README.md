@@ -1,4 +1,5 @@
-#Form Progress Bar jQuery plugin
+# Form Progress Bar jQuery plugin
+================================
 ![alt text](https://api.wokay.me/uploads/1528147646.gif)
 
 -Plugin adding progress bar on top to the page, which show how much fields you fill which are required. 
@@ -6,7 +7,7 @@
 -Modules works with validation libraries
 
 
-#Quick Star
+# Quick Star
 
 Import needed files
 
@@ -27,7 +28,7 @@ Init form
 $("form").formProgressBar()
 ```
 
-#Options
+# Options
 `readCount`:true|**false** - If you turn on this option, form will be use classes to count correct fields. If you use Validator libraries, choice this option.
 
 `validClass`:'string' - It's class used by validator to show that field is correct filled. If you enabled readCount progress will be based on valicClass. Default class is **"valid"**
@@ -55,7 +56,7 @@ $("form").formProgressBar({
 });
 ```
 
-#How works changing colors
+# How works changing colors
 There are 2 classes
 `warn` and `error` which are added to `#jQueryProgressFormBar > div`
 if some field is invalid to progress bar is added class `warn`
@@ -63,7 +64,7 @@ if you have class `warn` and you try submit form, class is changing for `error`.
 
 In case you want change color of fields use `#jQueryProgressFormBar > div.warn` and `#jQueryProgressFormBar > div.error` selector and change background
 
-#Author
+# Author
 
 ###Krzysztof Łokaj "Wokay"
 - Blog https://wokay.me/
