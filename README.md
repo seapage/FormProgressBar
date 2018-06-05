@@ -5,6 +5,8 @@
 
 -Modules works with validation libraries
 
+# Live Demo
+You can preview this plugin on: https://wokay.me/projects/progressBar/
 
 # Quick Start
 
