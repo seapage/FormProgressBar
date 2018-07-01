@@ -7,12 +7,13 @@ $.fn.formProgressBar = function(options) {
         percentCounting: false,
         transitionTime: 0,
         height: 10,
-        transitionType: 'ease' //ease, linear, ease-in, ease-out, ease-in-out
+        transitionType: 'ease', //ease, linear, ease-in, ease-out, ease-in-out
+        element: "body"
     };
 
     var settings = $.extend( {}, defaults, options );
 
-    $("body").prepend("<div id='jQueryProgressFormBar'><div></div></div>")
+    $(e.element).prepend("<div id='jQueryProgressFormBar'><div></div></div>")
     $("#jQueryProgressFormBar").css("position","fixed").css("top",0).css("left",0).css("width","100%").css("height",settings.height).css("z-index",10000)
     $("#jQueryProgressFormBar>div").css({
         WebkitTransition : 'all '+settings.transitionTime+'ms '+settings.transitionType,
