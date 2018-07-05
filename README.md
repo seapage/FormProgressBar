@@ -44,7 +44,7 @@ $("form").formProgressBar()
 
 `transitionType`: `ease`|`linear`|`ease-in`|`ease-out`|`ease-in-out` if you set `transitionTime` you can set how transition should looks like
 
-``
+`parentElement`: 'string' default: **body** Element where progressbar html is located
 
 **Example initializate option**
 ```
