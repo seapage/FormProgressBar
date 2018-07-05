@@ -13,7 +13,7 @@ $.fn.formProgressBar = function(options) {
 
     var settings = $.extend( {}, defaults, options );
 
-    $(e.element).prepend("<div id='jQueryProgressFormBar'><div></div></div>")
+    $(defaults.element).prepend("<div id='jQueryProgressFormBar'><div></div></div>")
     $("#jQueryProgressFormBar").css("position","fixed").css("top",0).css("left",0).css("width","100%").css("height",settings.height).css("z-index",10000)
     $("#jQueryProgressFormBar>div").css({
         WebkitTransition : 'all '+settings.transitionTime+'ms '+settings.transitionType,
