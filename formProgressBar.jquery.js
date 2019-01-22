@@ -61,61 +61,83 @@ $.fn.formProgressBar = function(options) {
             $("#jQueryProgressFormBar>div").removeClass('warn').removeClass('error')
 
     }
+    //element when readCount is false
+    this.countElementsDefaults = function (elem, initFnc = false) {
+
+
+
+        switch ($(elem).prop('nodeName')){
+            case "INPUT":
+                switch ($(elem).attr("type")){
+                    case "text":
+                        if($(elem).val()==""&&initFnc){
+                            formFields[$(elem).attr("name")]=0
+                        } else if($(elem).val()!=""){
+                            formFields[$(elem).attr("name")]=1
+                        }else{
+                            formFields[$(elem).attr("name")]=-1
+                        }
+                        break;
+                    case "email":
+                        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                        if($(elem).val()==""&&initFnc){
+                            formFields[$(elem).attr("name")]=0
+                        } else if(re.test(String($(elem).val()).toLowerCase())){
+                            formFields[$(elem).attr("name")]=1
+                        }else{
+                            formFields[$(elem).attr("name")]=-1
+                        }
+                        break;
+                    case "number":
+
+                        if($(elem).val()==""&&initFnc){
+                            formFields[$(elem).attr("name")]=0
+                        } else if($.isNumeric($(elem).val())){
+                            formFields[$(elem).attr("name")]=1
+                        }else{
+                            formFields[$(elem).attr("name")]=-1
+                        }
+                        break;
+                    case "checkbox":
+                        if(!$(elem).is(':checked')&&initFnc){
+                            formFields[$(elem).attr("name")]=0
+                        }else if($(elem).is(':checked')){
+                            formFields[$(elem).attr("name")]=1
+                        }else{
+                            formFields[$(elem).attr("name")]=-1
+                        }
+                        break;
+                    case "radio":
+                        if(!$(elem).is(':checked')&&initFnc){
+                            formFields[$(elem).attr("name")]=0
+                        }else if($(elem).is(':checked')){
+                            formFields[$(elem).attr("name")]=1
+                        }else{
+                            formFields[$(elem).attr("name")]=-1
+                        }
+                        break;
+                }
+                break;
+            case "SELECT":
+
+                if($(elem).val()==""&&initFnc){
+                    formFields[$(elem).attr("name")]=0
+                } else if($(elem).val()!=""){
+                    formFields[$(elem).attr("name")]=1
+                }else{
+                    formFields[$(elem).attr("name")]=-1
+                }
+                break;
+
+        }
+    }
     this.bindElements = function () {
         var editBar = this.renderBar
+        var countElementsDefaults = this.countElementsDefaults
         $(this).find("input[required], textarea[required], select[required]").change(function () {
             if(!settings.readCount){
-                switch ($(this).prop('nodeName')){
-                    case "INPUT":
-                        switch ($(this).attr("type")){
-                            case "text":
-                                if($(this).val()!=""){
-                                    formFields[$(this).attr("name")]=1
-                                }else{
-                                    formFields[$(this).attr("name")]=-1
-                                }
-                                break;
-                            case "email":
-                                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                                if(re.test(String($(this).val()).toLowerCase())){
-                                    formFields[$(this).attr("name")]=1
-                                }else{
-                                    formFields[$(this).attr("name")]=-1
-                                }
-                                break;
-                            case "number":
-                                if($.isNumeric($(this).val())){
-                                    formFields[$(this).attr("name")]=1
-                                }else{
-                                    formFields[$(this).attr("name")]=-1
-                                }
-                                break;
-                            case "checkbox":
-                                if($(this).is(':checked')){
-                                    formFields[$(this).attr("name")]=1
-                                }else{
-                                    formFields[$(this).attr("name")]=-1
-                                }
-                                break;
-                            case "radio":
-                                if($(this).is(':checked')){
-                                    formFields[$(this).attr("name")]=1
-                                }else{
-                                    formFields[$(this).attr("name")]=-1
-                                }
-                                break;
-                        }
-                        break;
-                    case "SELECT":
-                        if($(this).val()!=""){
-                            formFields[$(this).attr("name")]=1
-                        }else{
-                            formFields[$(this).attr("name")]=-1
-                        }
-                        break;
-
-                }
-
+                countElementsDefaults(this)
             }else{
                 switch ($(this).attr("type")){
                     case "checkbox":
@@ -133,31 +155,29 @@ $.fn.formProgressBar = function(options) {
                         }
                         break;
                 }
-            }
-            editBar();
-        })
 
-        if(settings.readCount) {
-            var $div = $(this).find("input[required], textarea[required], select[required]");
-            var observer = new MutationObserver(function (mutations) {
-                mutations.forEach(function (mutation) {
-                    if (mutation.attributeName === "class") {
-                        if ($(mutation.target).hasClass(settings.validClass)) {
-                            formFields[$(mutation.target).attr("name")] = 1
-                        } else if ($(mutation.target).hasClass(settings.invalidClass)) {
-                            formFields[$(mutation.target).attr("name")] = -1
+                var $div = $(this).find("input[required], textarea[required], select[required]");
+                var observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === "class") {
+                            if ($(mutation.target).hasClass(settings.validClass)) {
+                                formFields[$(mutation.target).attr("name")] = 1
+                            } else if ($(mutation.target).hasClass(settings.invalidClass)) {
+                                formFields[$(mutation.target).attr("name")] = -1
+                            }
+                            editBar();
                         }
-                        editBar();
-                    }
+                    });
                 });
-            });
-            $div.map(function (item) {
-                observer.observe($div[item], {
-                    attributes: true
-                });
-            })
-        }
-;
+                $div.map(function (item) {
+                    observer.observe($div[item], {
+                        attributes: true
+                    });
+                })
+            }
+
+            editBar();
+        });
         $(this).submit(function (e) {
             if($("#jQueryProgressFormBar>div").hasClass('warn')){
                 $("#jQueryProgressFormBar>div").removeClass("warn").addClass("error")
@@ -184,12 +204,37 @@ $.fn.formProgressBar = function(options) {
         })
     }
 
-    var formFields = this.elementsRequied();
+    this.initStart = function () {
+
+        formFields = this.elementsRequied();
 
 
 
-    this.bindElements()
+        this.bindElements()
 
+        var countElementsDefaults = this.countElementsDefaults
+        var renderBar = this.renderBar
+
+        if(!settings.readCount){
+            $(this).find("input[required], textarea[required], select[required]").each(function (e) {
+                countElementsDefaults(this, true)
+                renderBar()
+            })
+        }else{
+            $(this).find("input[required], textarea[required], select[required]").each(function (e) {
+                    if($(this).hasClass(settings.validClass)){
+                        formFields[$(this).attr("name")] = 1
+                    }else if($(this).hasClass(settings.invalidClass)){
+                        formFields[$(this).attr("name")] = -1
+                    }else{
+                        formFields[$(this).attr("name")] = 0
+                    }
+                });
+            renderBar();
+        }
+    }
+    var formFields
+    this.initStart()
     return this;
 };
 

@@ -1,5 +1,5 @@
 # Form Progress Bar jQuery plugin
-![alt text](https://api.wokay.me/uploads/1528147646.gif)
+![alt text](https://wokay.me/uploads/1528147646.gif)
 
 -Plugin adding progress bar on top to the page, which show how much fields you fill which are required. 
 

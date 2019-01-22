@@ -85,7 +85,7 @@
 
         <div class="d-block my-3">
             <div class="custom-control custom-radio">
-                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" required>
                 <label class="custom-control-label" for="credit">Credit card</label>
             </div>
             <div class="custom-control custom-radio">
@@ -122,8 +122,7 @@
         <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
     </form>
     <script>
-        var elem = $("form").formProgressBar({transitionTime: 500});
-        $("form").validate();
+        $("form").formProgressBar({transitionTime: 500});
     </script>
     </body>
 </html>
